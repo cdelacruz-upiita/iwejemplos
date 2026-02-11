@@ -1,0 +1,95 @@
+/* Box-sizing global */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+}
+
+body {  
+    background-color: #f4f4f4;
+}
+
+/* Header */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 4px solid #333;
+    margin-bottom: 20px;
+}
+
+header h1{
+   font-size: 4rem; 
+}
+
+/* Gallery Flex Container */
+.gallery {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap; /* permite que las tarjetas se acomoden en varias filas */
+    gap: 30px; /* espacio entre tarjetas */
+    justify-content:center; /* centra las tarjetas en el contenedor */
+    padding: 40px 20px 40px 20px; /* padding lateral y inferior */
+    border: 2px solid red;
+}
+
+/* Tarjeta individual */
+.card {
+    background-color: white;
+    border: 4px solid #9e9898c3;
+    border-radius: 8px;
+    /*flex: 0 0 30%;*/
+        flex: 1;
+    aspect-ratio: 1 / 1;
+    
+    display: flex;
+    flex-direction: column; /* contenido de la tarjeta vertical */
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    
+}
+
+/* Hover efecto */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Imagen de la tarjeta */
+.card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    
+}
+
+/* Título y descripción */
+.card h3 {
+    margin: 15px 0 10px 0;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.card p {
+    padding: 0 15px 15px 15px;
+    font-size: 1.5rem;
+    color: #666;
+}
+
+/* Footer */
+footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    border-top: 4px solid #333;
+    margin-top: 20px;
+}
