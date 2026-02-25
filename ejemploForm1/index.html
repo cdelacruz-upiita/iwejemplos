@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario con validación</title>
+    <link rel="stylesheet" href="css/styles.css" type="text/css" />
+
+</head>
+<body>
+    <h2>Formulario de registro</h2>
+
+    <form id="miFormulario"  enctype="multipart/form-data">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ej. Juan López" required>
+        <div class="mensaje" id="errorNombre"></div>
+
+        <label for="correo">Correo electrónico:</label>
+        <input type="email" id="correo" name="correo" placeholder="correo@ejemplo.com" required>
+        <div class="mensaje" id="errorCorreo"></div>
+
+        <label for="archivo">Selecciona un archivo:</label>
+        <input type="file" id="archivo" name="archivo" accept=".jpg,.png,.pdf" required>
+        <div class="mensaje" id="errorArchivo"></div>
+        <div class="btnContainer">
+            <button class="submit" type="button">Enviar</button>
+            <button class="reset" type="reset">Limpiar</button>
+        </div>
+    </form>
+
+    <div class="success" id="mensajeExito"></div>
+
+
+<script>
+    // Capturamos el formulario
+    const formulario = document.querySelector("#miFormulario");
+
+    formulario.addEventListener("submit", function(e) {
+        e.preventDefault(); // Evita envío automático
+
+        // Limpiamos mensajes y errores anteriores
+        document.querySelector("#errorNombre").textContent = "";
+        document.querySelector("#errorCorreo").textContent = "";
+        document.querySelector("#errorArchivo").textContent = "";
+        document.querySelector("#mensajeExito").textContent = "";
+        document.querySelector("#nombre").classList.remove("error");
+        document.querySelector("#correo").classList.remove("error");
+        document.querySelector("#archivo").classList.remove("error");
+
+        let valid = true;
+
+        // Validación del nombre
+        const nombre = document.querySelector("#nombre").value.trim();
+        if(!/^[A-Za-z\s]{3,50}$/.test(nombre)){
+            document.querySelector("#errorNombre").textContent = "Nombre inválido (solo letras, mínimo 3 caracteres)";
+            document.querySelector("#nombre").classList.add("error");
+            valid = false;
+        }
+
+        // Validación del correo
+        const correo = document.querySelector("#correo").value.trim();
+        if(!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(correo)){
+            document.querySelector("#errorCorreo").textContent = "Correo inválido";
+            document.querySelector("#correo").classList.add("error");
+            valid = false;
+        }
+
+        // Validación de archivo
+        const archivo = document.querySelector("#archivo").files[0];
+        if(!archivo){
+            document.querySelector("#errorArchivo").textContent = "Debes seleccionar un archivo";
+            document.querySelector("#archivo").classList.add("error");
+            valid = false;
+        } else {
+            const extensiones = ["image/jpeg", "image/png", "application/pdf"];
+            if(!extensiones.includes(archivo.type)){
+                document.querySelector("#errorArchivo").textContent = "Formato no permitido (.jpg, .png, .pdf)";
+                document.querySelector("#archivo").classList.add("error");
+                valid = false;
+            }
+        }
+
+        // Si todo es válido
+        if(valid){
+            document.querySelector("#mensajeExito").textContent = "¡Formulario enviado correctamente!";
+            // Aquí se podría enviar con fetch/AJAX o formulario.submit()
+        }
+    });
+</script>
+
+</body>
+</html>
