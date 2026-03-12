@@ -1,0 +1,19 @@
+# Node modules
+/ejemploWebApp/node_modules/
+
+# Archivos de log
+*.log
+
+# Entornos
+.env
+
+# Carpeta de builds
+dist/
+build/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Editor settings (opcional)
+.vscode/
