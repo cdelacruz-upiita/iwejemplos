@@ -18,6 +18,16 @@ body{
     padding:20px;
 }
 
+.container {
+    background: rgb(206, 227, 247);
+    padding: 25px;
+    border-radius: 10px;
+    width: 370px;
+    height: auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+
 /* TITULO */
 h2{
     margin-bottom:20px;
@@ -126,6 +136,23 @@ button{
     text-align:center;
 }
 
+.links {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .links a {
+    display: block;
+    font-size: 13px;
+    color: #007BFF;
+    text-decoration: none;
+    margin-top: 5px;
+  }
+
+  .links a:hover {
+    text-decoration: underline;
+  }
+
 /* ---------------- RESPONSIVE ---------------- */
 /* TABLETS */
 @media (max-width:768px){
@@ -141,3 +168,61 @@ button{
     button{font-size:13px; padding:9px;}
     .btnContainer{ flex-direction:column; }
 }
+
+/*
+* Formulario Inicio de Sesión
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  input.invalido {
+    border-color: red;
+  }
+
+  input.valido {
+    border-color: green;
+  }
+
+  .error {
+    color: red;
+    font-size: 12px;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    background: #007BFF;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #0056b3;
+  }
+
+  
+</style>
+*/

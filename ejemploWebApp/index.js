@@ -30,8 +30,10 @@ import { fileURLToPath } from "url";
 
 /*import dotenv from "dotenv"; // npm install dotenv*/
 
-import formRoutes from "./routes/formRoutes.js";
+import usersRoutes from "./routes/usersRoutes.js";
+import { get404 } from "./controllers/errorController.js"
 
+// netsat
 // asigna puerto para atender peticiones
 /**
  * | Rango       | Tipo        | Uso recomendado                                 |
@@ -45,7 +47,6 @@ const PORT = 3000;
 // instancia el modulo de express para configurar el servidor
 const app = express();
 
-
 // habilita la conversión de objetos JSON a objetos JS.
 app.use(express.json());
 // habilita el procesamiento de solicitudes POST/PUT
@@ -54,13 +55,32 @@ app.use(express.urlencoded({ extended: true }));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+
+app.get("/", (req, res) => {  
+  res.sendFile(path.join(__dirname, "public/html/formInicioS.html"));
+});
+
 // asocia contenido estático HTML, CSS
-app.use("/", express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
-// Rutas
-app.use("/", formRoutes);
-
+app.use("/users",usersRoutes);
 // Se asocia el puerto e inicia el servidor
+/**
+ * app.listen(PORT, "0.0.0.0", () => {
+    console.log("Servidor corriendo");
+});
+ */
+
+app.use(get404);
+
+app.use ((err, req, res, next)=>{
+   const statusCode = err.statusCode || 500;
+   res.status(statusCode).json({
+      status: 'error',
+      message: err.message || "Algo salió mal ..."
+   })
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
 });

@@ -1,0 +1,110 @@
+/**
+ * Encargo de la lógica de negocio
+ * Responsabilidades:
+ *  1. Procesar datos del formulario
+ *  2. Guardar información
+ *  3. Aplicar reglas de negocio
+ *  4. Transformar datos
+ */
+
+import bcrypt from 'bcrypt';
+import {writeUser, findUserByEmail} from "../models/usersModel.js"
+
+export const processForm = async (datos) => {
+  const { nombre, contrasena, preguntarc, respuestarc, correo } = datos;
+  const errores = {};
+
+  // Validaciones
+  if (!nombre || !/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(nombre)) {
+    errores.nombre = "El nombre solo debe contener letras";
+  }
+
+  if (!correo || !/^\S+@\S+\.\S+$/.test(correo)) {
+    errores.correo = "Correo inválido";
+  }
+
+  if (!contrasena || contrasena.length < 6) {
+    errores.contrasena = "La contraseña debe tener al menos 6 caracteres";
+  }
+
+  if (!respuestarc || respuestarc.length < 2) {
+    errores.respuestarc = "Respuesta de seguridad inválida";
+  }
+
+  // Si hay errores, los devolvemos
+  if (Object.keys(errores).length > 0) {
+    return {
+      success: false,
+      errors: errores
+    };
+  }
+
+  try {
+    // Generar hashes
+    const saltRounds = 12;
+    const contrasenaHash = await bcrypt.hash(contrasena, saltRounds);
+    const respuestarcHash = await bcrypt.hash(respuestarc, saltRounds);
+
+    // Datos procesados con hash
+    const datosProcesados = {
+      nombre,
+      contrasena: contrasenaHash,
+      preguntarc,
+      respuestarc: respuestarcHash,
+      correo,
+      fecha: new Date()
+    };
+
+    // Guardar datos
+    await writeUser(datosProcesados);
+    console.log("Procesado:", datosProcesados);
+
+    return {
+      success: true,
+      errors: null,
+      data: datosProcesados
+    };
+  } catch (err) {
+    console.error("Error al guardar el archivo:", err.message);
+    return {
+      success: false,
+      errors: { general: "No se pudo guardar la información" }
+    };
+  }
+};
+
+export const validateUser = async (correo, contrasena) => {
+     try {
+      const user = await findUserByEmail(correo);      
+
+      if (!user) {
+          return ({
+              success: false,
+              errors: { correo: 'Usuario no encontrado' }              
+          }); 
+      }
+      
+      const match = await bcrypt.compare(contrasena, user.contrasena);
+      
+      if (!match) {
+        return ({
+          success: false,
+          errors: { contrasena: 'Contraseña incorrecta' }
+        });
+      }
+
+      return ({
+        success: true,
+        errors: null,
+        data: user
+      });
+    } catch(err){
+       console.error(err);
+       return ({
+          success: false,
+          errors: { general: 'Error del servidor' }
+       });
+    }  
+
+};
+
