@@ -19,9 +19,8 @@
       a través de envíos POST y GET.
 
       npm install express
-
       npm install --save-dev nodemon
-
+      npm install bcrypt
 */
 
 import express from "express";
@@ -33,7 +32,6 @@ import { fileURLToPath } from "url";
 import usersRoutes from "./routes/usersRoutes.js";
 import { get404 } from "./controllers/errorController.js"
 
-// netsat
 // asigna puerto para atender peticiones
 /**
  * | Rango       | Tipo        | Uso recomendado                                 |
@@ -46,19 +44,24 @@ const PORT = 3000;
 
 // instancia el modulo de express para configurar el servidor
 const app = express();
-
-// habilita la conversión de objetos JSON a objetos JS.
-app.use(express.json());
-// habilita el procesamiento de solicitudes POST/PUT
-app.use(express.urlencoded({ extended: true }));
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Define el motor de plantillas
+app.set('view engine', 'ejs');
+
+// habilita la conversión de objetos JSON a objetos JS.
+app.use(express.json());
+
+// habilita el procesamiento de solicitudes POST/PUT
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {  
   res.sendFile(path.join(__dirname, "public/html/formInicioS.html"));
 });
+
+// asocia carpeta views para las vistas EJS
+app.set('views', path.join(__dirname, 'views'));
 
 // asocia contenido estático HTML, CSS
 app.use(express.static(path.join(__dirname, "public")));
