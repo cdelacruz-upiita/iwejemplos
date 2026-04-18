@@ -3,8 +3,10 @@ import * as crud from '../controllers/usersMySQL.js';
 import * as crudSQL from '../controllers/usersSQLServer.js';
 const router = Router();
 
+// http://localhost:5000/api/mysql/users
 router.get('/mysql/users', crud.getUsers);
 router.get('/sqlserver/users', crudSQL.getUsers);
+router.get('/sqlserver/users/:correo', crudSQL.findByEmail);
 
 /**
   {

@@ -1,6 +1,8 @@
 # Node modules
 /ejemploWebApp/node_modules/
 /ejemploWebApp/package-lock.json
+/APIREST/node_modules/
+/APIREST/package-lock.json
 
 # Archivos de log
 *.log

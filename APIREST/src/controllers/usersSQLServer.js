@@ -1,4 +1,4 @@
-import { getAllUsers, createUser } from '../models/usersSQLServer.js';
+import { getAllUsers, createUser, getByEmail } from '../models/usersSQLServer.js';
 import { validateUser } from '../models/validator.js';
 
 
@@ -23,5 +23,13 @@ export const registerUser = async (req, res) => {
   }
 };
 
-const crudSQL = { getUsers, registerUser };
-export default crudSQL;
+// http://localhost:5000/api/sqlserver/users/pedro@gmail.com
+export const findByEmail = async (req, res) => {
+  try {
+    console.log (req.params.correo)
+    const users = await getByEmail(req.params.correo);
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

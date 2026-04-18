@@ -1,4 +1,12 @@
 import sql from 'mssql';
+import dotenv from 'dotenv';
+dotenv.config();
+
+/**
+ * rm -rf node_modules package-lock.json
+   npm install
+ */
+
 
 export const sqlServerConfig = {
   user: process.env.SQLSERVER_USER,

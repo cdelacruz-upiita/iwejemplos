@@ -27,3 +27,13 @@ export const createUser = async (user) => {
 
   return result.recordset[0].id;
 };
+
+export const getByEmail = async (email) => {
+  const pool = await getConnection();
+  const result = await pool
+    .request()
+    .input('correo', email)
+    .query('SELECT * FROM users WHERE correo = @correo');
+
+  return result.recordset;  
+}
