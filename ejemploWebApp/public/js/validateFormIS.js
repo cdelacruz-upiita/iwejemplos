@@ -53,41 +53,21 @@ function debounce(func, delay = 300) {
   input.addEventListener("input", debounce(() => validarCampo(input), 300));
 });
 
-/* submit */
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const inputs = form.querySelectorAll("input");
-  let valido = true;
-
-  inputs.forEach(input => {
-    if (!validarCampo(input)) valido = false;
+form.addEventListener("submit", (event) => {
+  let esFormularioValido = true;
+  
+  ["correo", "contrasena"].forEach(id => {
+    const input = document.getElementById(id);
+    if (!validarCampo(input)) {
+      esFormularioValido = false;
+    }
   });
 
-  if (!valido) return;
-
-  const datos = {
-    correo: document.getElementById("correo").value,
-    contrasena: document.getElementById("contrasena").value
-  };
-
-  try {
-    const response = await fetch("/users/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(datos)
-    });
-
-    const resultadoServidor = await response.json();
-    const nombre = resultadoServidor.data.nombre;
-    const url = `/users/login/${encodeURIComponent(nombre)}`;
-    console.log(url);
-    window.location.href = url;
-
-  } catch (error) {
-    alert("Error al iniciar sesión");
+  
+  if (!esFormularioValido) {
+    event.preventDefault(); 
+    console.log("El formulario tiene errores. No se envía.");
+  } else {
+    console.log("Formulario válido. Enviando al servidor...");
   }
 });
-

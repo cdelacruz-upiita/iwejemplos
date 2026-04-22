@@ -18,7 +18,7 @@ const router = express.Router();
 router.get("/registro", showFormRegister);
 router.post("/registro", registerUser);
 router.post("/login",loginUser)
-router.get("/login/:name", showWelcome);
+/*router.get("/login/:name", showWelcome);*/
 router.get("/recory", showRecovery);
 
 

@@ -61,7 +61,7 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { correo, contrasena } = req.body;
   try {
-    const result = await validateUser(correo, contrasena);
+    /*const result = await validateUser(correo, contrasena);
 
     console.log(result);
     // Si el servicio indica error
@@ -71,17 +71,20 @@ export const loginUser = async (req, res) => {
         errors: result.errors
       });
     }
-
+*/
     // Login correcto
-    return res.status(200).json({
+   /* return res.status(200).json({
       success: true,
       errors: null,
       data: result.data
-    });
+    });*/
 
+    console.log('antes del render ...')
+
+    // Renderizar la vista
+    res.render('pages/bienvenida',{ nombre:'Juan' })
   } catch (error) {
     console.error('Error en loginUser:', error.message);
-
     return res.status(500).json({
       success: false,
       errors: { general: 'Error interno del servidor' }

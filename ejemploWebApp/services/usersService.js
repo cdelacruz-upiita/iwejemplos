@@ -163,8 +163,25 @@ export const processForm = async (datos) => {
 
 export const validateUser = async (correo, contrasena) => {
      try {
-      const user = await findUserByEmail(correo);      
+      /*const user = await findUserByEmail(correo);      */
+      /**
+       * Petición a la API de la BD
+       */
 
+      try {
+        const response = await fetch(`http://localhost:5000/api/sqlserver/getByEmail/${correo}`);
+        console.log(response)
+        if (!response.ok) {
+            throw new Error(`Error en la petición: ${response.status}`);
+        }
+        const user = await response.json();
+        console.log(user);
+        
+    } catch (error) {
+        console.error("Hubo un problema:", error.message);
+    }
+      
+     
       if (!user) {
           return ({
               success: false,
