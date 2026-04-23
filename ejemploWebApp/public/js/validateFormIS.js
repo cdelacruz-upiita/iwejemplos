@@ -62,7 +62,6 @@ form.addEventListener("submit", (event) => {
       esFormularioValido = false;
     }
   });
-
   
   if (!esFormularioValido) {
     event.preventDefault(); 

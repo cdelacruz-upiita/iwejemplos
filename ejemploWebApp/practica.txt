@@ -1,0 +1,13 @@
+Práctica 3.
+Fecha de entrega: 29 de abril
+
+Objetivo:Integrar la API a la BD en 
+         lugar del archivo JSON e 
+         integrar el motor EJS para
+         la página de bienvenida. 
+         Adicional deben configurar
+         en su aplicación el uso de 
+         sesiones.
+        
+         
+

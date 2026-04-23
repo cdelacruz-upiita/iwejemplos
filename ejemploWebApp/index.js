@@ -1,3 +1,68 @@
+/**
+ * Sesiones y cookies
+ * 
+ Middleware express-session: Genera y gestiona el session ID, firma cookies para seguridad con una clave secreta.
+
+Cookie HTTP: Almacena el session ID en el navegador del cliente (HttpOnly para prevenir XSS).
+
+Almacén de sesiones: Memoria para desarrollo; Redis o bases de datos para escalabilidad y persistencia entre servidores.
+
+Opciones clave: secret (firma), resave: false (no guarda sin cambios), saveUninitialized: true (guarda sesiones nuevas), cookie: { secure: true, maxAge: 24*60*60*1000 } (duración).
+
+
+const app = express();
+
+app.use(session({
+  secret: 'tu-clave-secreta-muy-larga-y-aleatoria',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+    secure: false, // true en HTTPS
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000 // 24 horas
+  }
+}));
+
+ req.session.user = { id: 1, name: username }; // Guardar datos
+
+   
+Let´s Encrypt
+
+mkcert
+
+
+ejemplo básico de https
+
+import express from 'express';
+import https from 'https';
+import fs from 'fs';
+import path from 'path';
+
+const app = express();
+
+// 1. Cargar los certificados
+// Nota: En producción, usa variables de entorno para las rutas
+const options = {
+  key: fs.readFileSync('./localhost-key.pem'),
+  cert: fs.readFileSync('./localhost.pem'),
+};
+
+app.get('/', (req, res) => {
+  res.send('¡Conexión segura establecida!');
+});
+
+// 2. Crear el servidor HTTPS pasando la app de Express
+const PORT = 443; // Puerto estándar para HTTPS
+https.createServer(options, app).listen(PORT, () => {
+  console.log(`Servidor HTTPS corriendo en https://localhost:${PORT}`);
+});
+
+ */
+
+
+
+
+
 /* 
    Archivo principal que inicia el servidor.
    Responsabilidades:
