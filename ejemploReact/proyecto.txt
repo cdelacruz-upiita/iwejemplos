@@ -1,0 +1,22 @@
+Desarrollar un proyecto con React, API REST para la lógica
+de negocio y acceso a BD (MySQL o SQL Server), autenticación
+de usuarios, uso de sesiones y despliegue en un servicio de
+hosting (ej. Vercel o Digital Ocean).
+
+Funcionalidades principales
+
+1. Registro/login de usuarios usando JWT
+2. CRUD en el modelo de la BD.
+3. API de servicios (lógica de negocio)
+4. Dashboard.
+
+Requisitos no funcionales
+
+Rendimiento: < 2s carga de página, API < 500 ms}}
+Seguridad: JWT, validación de INPUTS
+Responsive: Mobile first
+Testing: uso de aplicaciones para prueba de carga, entre otras
+         (Jest, React Testing Library)
+
+Entregables:
+         
